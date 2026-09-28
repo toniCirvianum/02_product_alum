@@ -6,6 +6,17 @@ include("../includes/header.php");
 include("../includes/navbar_app.php");
 
 
+if (isset($_SESSION['filterProducts'])) {
+    $products =$_SESSION['filterProducts'];
+} else {
+    $products = $_SESSION['products'];
+}
+
+// $produts = $_SESSION['filterProducts'] ?? $_SESSION['products'];
+
+
+
+
 
 ?>
 
@@ -17,7 +28,7 @@ include("../includes/navbar_app.php");
 <div class="container mx-auto mt-3 my-6">
     <div class="bg-light p-4 rounded mb-4 border">
         <!-- Comença el form del filtre de productes -->
-        <form action="#" method="GET" class="row g-3">
+        <form action="../controllers/filter_controller.php" method="POST" class="row g-3">
             <div class="col-md-4">
                 <!-- Filtre per nom -->
                 <label class="form-label">Nom del producte </label>
@@ -65,7 +76,7 @@ include("../includes/navbar_app.php");
                 <button type="submit" class="btn btn-primary">
                     Filtrar
                 </button>
-                <a href="#" class="btn btn-secondary">
+                <a href="../controllers/filter_controller.php?delete=yes" class="btn btn-secondary">
                     Netejar Filtres
                 </a>
             </div>
@@ -76,26 +87,27 @@ include("../includes/navbar_app.php");
     <!-- Comença la llista de productes -->
     <div class="row g-4 mb-4">
         <!-- card de producte -->
+        <?php foreach ($products as $product): ?>
         <div class="col-md-3 col-sm-6">
             <div class="card bg-light w-100">
                 <div class="card-body">
                     <!-- Nom del producte -->
                     <h5 class="card-title fw-bold">
-                        Nom del producte
+                        <?= $product['name'] ?>
                     </h5>
                     <!-- imatge -->
                     <img
-                        src="../public/images/products/laptop_stand.jpg"
+                        src="../public/images/products/<?= $product['image'] ?>"
                         class="card-img-top"
                         style="height: 200px; object-fit: cover;"
-                        alt="Nom del producte">
+                        alt="<?= $product['name'] ?>">
                     <!-- Descripcio -->
                     <p class="card-text overflow-hidden" style="height:5rem;">
-                        Descripcio del producte
+                        <?= $product['description'] ?>
                     </p>
                     <!-- preu -->
                     <p class="fw-bold text-center">
-                        Preu del producte €
+                        <?= $product['price'] ?>
                     </p>
                     <!-- Boto per afegir al carret fent servir POST -->
                     <div class="d-flex justify-content-center">
@@ -112,80 +124,9 @@ include("../includes/navbar_app.php");
                 </div>
             </div>
         </div>
+        <?php endforeach; ?>
 
-        <div class="col-md-3 col-sm-6">
-            <div class="card bg-light w-100">
-                <div class="card-body">
-                    <!-- Nom del producte -->
-                    <h5 class="card-title fw-bold">
-                        Nom del producte
-                    </h5>
-                    <!-- imatge -->
-                    <img
-                        src="../public/images/products/laptop_stand.jpg"
-                        class="card-img-top"
-                        style="height: 200px; object-fit: cover;"
-                        alt="Nom del producte">
-                    <!-- Descripcio -->
-                    <p class="card-text overflow-hidden" style="height:5rem;">
-                        Descripcio del producte
-                    </p>
-                    <!-- preu -->
-                    <p class="fw-bold text-center">
-                        Preu del producte €
-                    </p>
-                    <!-- Boto per afegir al carret fent servir POST -->
-                    <div class="d-flex justify-content-center">
-                        <a
-                            href="#"
-                            class="btn btn-primary">
-
-                            <i class="bi bi-cart-plus"></i>
-                            Aegir al carret
-                        </a>
-
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-3 col-sm-6">
-            <div class="card bg-light w-100">
-                <div class="card-body">
-                    <!-- Nom del producte -->
-                    <h5 class="card-title fw-bold">
-                        Nom del producte
-                    </h5>
-                    <!-- imatge -->
-                    <img
-                        src="../public/images/products/laptop_stand.jpg"
-                        class="card-img-top"
-                        style="height: 200px; object-fit: cover;"
-                        alt="Nom del producte">
-                    <!-- Descripcio -->
-                    <p class="card-text overflow-hidden" style="height:5rem;">
-                        Descripcio del producte
-                    </p>
-                    <!-- preu -->
-                    <p class="fw-bold text-center">
-                        Preu del producte €
-                    </p>
-                    <!-- Boto per afegir al carret fent servir POST -->
-                    <div class="d-flex justify-content-center">
-                        <a
-                            href="#"
-                            class="btn btn-primary">
-
-                            <i class="bi bi-cart-plus"></i>
-                            Aegir al carret
-                        </a>
-
-                    </div>
-
-                </div>
-            </div>
-        </div>
+      
 
 
 
